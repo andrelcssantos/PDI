@@ -19,7 +19,7 @@ public class PegandoPixelsSemJAI {
     
     public static void main(String[] args) throws IOException{
         
-        File f = new File("C:\\Users\\andre\\Documents\\NetBeansProjects\\PDI\\checkerboard.png"); //seleciona o arquivo
+        File f = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\checkerboard.png"); //seleciona o arquivo
         BufferedImage image = ImageIO.read(f); //le o arquivo
         System.out.println("Dimensões: "+image.getWidth()+"x"+image.getHeight()+"pixels"); //exibe suas dimensões
         
