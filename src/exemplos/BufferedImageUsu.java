@@ -19,7 +19,7 @@ public class BufferedImageUsu {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         WritableRaster raster = image.getRaster();
         int[] cor1 = new int[]{255, 0, 0};
-        int[] cor2 = new int[]{0, 180, 0};
+        int[] cor2 = new int[]{255, 255, 255};
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
                 if ((((w / 16) + (h / 16)) % 2) == 0) {
