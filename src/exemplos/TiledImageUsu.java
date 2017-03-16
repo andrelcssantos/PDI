@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package codigo;
+package exemplos;
 
 import java.awt.image.DataBuffer;
 import java.awt.image.SampleModel;

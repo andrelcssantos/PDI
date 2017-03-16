@@ -1,4 +1,4 @@
-package codigo;
+package exemplos;
 
 import java.awt.image.BufferedImage;
 import java.awt.image.WritableRaster;
@@ -19,11 +19,10 @@ public class BufferedImageUsu {
         BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
         WritableRaster raster = image.getRaster();
         int[] cor1 = new int[]{255, 0, 0};
-        int[] cor2 = new int[]{0, 255, 0};
-        int cont = 0;
+        int[] cor2 = new int[]{0, 180, 0};
         for (int h = 0; h < height; h++) {
             for (int w = 0; w < width; w++) {
-                if ((((w / 32) + (h / 32)) % 2) == 0) {
+                if ((((w / 16) + (h / 16)) % 2) == 0) {
                     raster.setPixel(w, h, cor1);
                 } else {
                     raster.setPixel(w, h, cor2);
