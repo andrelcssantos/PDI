@@ -1,4 +1,4 @@
-package pdi;
+package trabalho;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -33,8 +33,6 @@ public class Histogram {
     private final BufferedImage image = getImage();
     private HistogramDataset dataset;
     private XYBarRenderer renderer;
-
-    
         
     private BufferedImage getImage() {
         try {
