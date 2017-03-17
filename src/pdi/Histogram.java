@@ -7,8 +7,8 @@ import java.awt.Paint;
 import java.awt.event.ActionEvent;
 import java.awt.image.BufferedImage;
 import java.awt.image.Raster;
+import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -28,15 +28,17 @@ import org.jfree.data.statistics.HistogramDataset;
 
 public class Histogram {
 
+    File f = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\ebola.png");
     private static final int BINS = 256;
     private final BufferedImage image = getImage();
     private HistogramDataset dataset;
     private XYBarRenderer renderer;
 
+    
+        
     private BufferedImage getImage() {
         try {
-            return ImageIO.read(new URL(
-                "http://ichef-1.bbci.co.uk/news/660/cpsprodpb/121D3/production/_91559147_furacao1.jpg"));
+            return ImageIO.read(f);
         } catch (IOException e) {
             e.printStackTrace(System.err);
         }
@@ -57,8 +59,8 @@ public class Histogram {
         r = raster.getSamples(0, 0, w, h, 2, r);
         dataset.addSeries("Blue", r, BINS);
         // chart
-        JFreeChart chart = ChartFactory.createHistogram("Histogram", "Value",
-            "Count", dataset, PlotOrientation.VERTICAL, true, true, false);
+        JFreeChart chart = ChartFactory.createHistogram("Histograma RGB", "Pixels",
+            "Quantidade", dataset, PlotOrientation.VERTICAL, true, true, false);
         XYPlot plot = (XYPlot) chart.getPlot();
         renderer = (XYBarRenderer) plot.getRenderer();
         renderer.setBarPainter(new StandardXYBarPainter());
@@ -106,7 +108,7 @@ public class Histogram {
     }
 
     private void display() {
-        JFrame f = new JFrame("Histogram");
+        JFrame f = new JFrame("Histograma");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.add(createChartPanel());
         f.add(createControlPanel(), BorderLayout.SOUTH);
