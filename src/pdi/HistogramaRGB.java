@@ -42,7 +42,7 @@ import org.jfree.data.statistics.HistogramDataset;
 public class HistogramaRGB {
     
     //instancia as variáveis
-    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\checkerboard.png");
+    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\ebola1.png");
     private BufferedImage imagem = pegaImagem();
     private Raster raster = imagem.getRaster();
     private HistogramDataset dataset;

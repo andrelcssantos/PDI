@@ -32,7 +32,7 @@ public class EqualizacaoHistograma {
         return null;
     }
 
-    public int[] pegaPixels(File file) {
+    public int[] pegaPixels(File file) throws IOException {
         BufferedImage img = pegaImagem();
 
         int w = img.getWidth();
@@ -40,35 +40,42 @@ public class EqualizacaoHistograma {
         int d = (w * h);
         int x = d / 256;
         int[] rgb = new int[d];
+        int red, green, blue, u;
+        int[] vr = new int[256];
+        int[] vg = new int[256];
+        int[] vb = new int[256];
+        Color cAux;
 
         for (int i = 0; i < w; i++) {
             for (int j = 0; j < h; j++) {
-                rgb[i * j] = img.getRGB(i, j);
+                u = img.getRGB(i, j);
+                cAux = new Color(u);
+                vr[cAux.getRed()]++;
+                vg[cAux.getGreen()]++;
+                vb[cAux.getBlue()]++;
             }
         }
 
-//        for (int i = 0; i < rgb.length; i++) {
-//            Color c = new Color(rgb[i]);
-//            System.out.println("Vermelho: " + c.getRed());
-//        }
-        int[] somaR = new int[rgb.length];
-        int[] somaG = new int[rgb.length];
-        int[] somaB = new int[rgb.length];
+        int[] somaR = new int[256];
+        int[] somaG = new int[256];
+        int[] somaB = new int[256];
 
-        int[] qR = new int[rgb.length];
-        int[] qG = new int[rgb.length];
-        int[] qB = new int[rgb.length];
+        int[] qR = new int[256];
+        int[] qG = new int[256];
+        int[] qB = new int[256];
+        
+        
 
-        for (int i = 0; i < rgb.length; i++) {
+        for (int i = 0; i < 256; i++) {
             Color c = new Color(rgb[i]);
             if (i == 0) {
-                somaR[i] = c.getRed();
-                somaG[i] = c.getGreen();
-                somaB[i] = c.getBlue();
+                somaR[i] = vr[i];
+                somaG[i] = vg[i];
+                somaB[i] = vb[i];
             } else {
-                somaR[i] = c.getRed() + somaR[i - 1];
-                somaG[i] = c.getGreen() + somaG[i - 1];
-                somaB[i] = c.getBlue() + somaB[i - 1];
+                somaR[i] = vr[i] + somaR[i - 1];
+                somaG[i] = vg[i] + somaG[i - 1];
+                somaB[i] = vb[i] + somaB[i - 1];
             }
             qR[i] = (somaR[i] / x) - 1;
             if (qR[i] < 0) {
@@ -83,13 +90,23 @@ public class EqualizacaoHistograma {
                 qB[i] = 0;
             }
         }
-        for (int i = 0; i < 256; i++) {
-            System.out.println("SomaR: " + somaR[i] + " - qR: " + qR[i]);
-        };
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                u = img.getRGB(i, j);
+                Color oldColor = new Color(u);
+                red = oldColor.getRed();
+                green = oldColor.getGreen();
+                blue = oldColor.getBlue();
+                Color newColor = new Color(qR[red], qG[green], qB[blue]);
+                img.setRGB(i, j, newColor.getRGB());
+            }
+        }
+        File ouptut = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\ebola1.png");
+        ImageIO.write(img, "png", ouptut);
         return rgb;
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         EqualizacaoHistograma m = new EqualizacaoHistograma();
         m.pegaPixels(arq);
     }

@@ -5,7 +5,6 @@
  */
 package Trabalho;
 
-import pdi.*;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -41,9 +40,9 @@ import org.jfree.data.statistics.HistogramDataset;
  * @author Andre
  */
 public class HistogramaRGB {
-    
+
     //instancia as variáveis
-    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\checkerboard.png");
+    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\ebola.png");
     private BufferedImage imagem = pegaImagem();
     private Raster raster = imagem.getRaster();
     private HistogramDataset dataset;
@@ -51,10 +50,10 @@ public class HistogramaRGB {
     private static final int BINS = 256;
     private final int w = imagem.getWidth();
     private final int h = imagem.getHeight();
-    private double[] r = new double[w*h];
-    
+    private double[] r = new double[w * h];
+
     //monta o histograma
-    public ChartPanel criaHistograma(){
+    public ChartPanel criaHistograma() {
         dataset = new HistogramDataset();
         //pega o RGB
         r = raster.getSamples(0, 0, w, h, 0, r);
@@ -63,7 +62,7 @@ public class HistogramaRGB {
         dataset.addSeries("Green", r, BINS);
         r = raster.getSamples(0, 0, w, h, 2, r);
         dataset.addSeries("Blue", r, BINS);
-        JFreeChart chart = ChartFactory.createHistogram("Histograma", "Pixels", "Y", 
+        JFreeChart chart = ChartFactory.createHistogram("Histograma", "Pixels", "Y",
                 dataset, PlotOrientation.VERTICAL, true, true, false);
         //Plota as cores
         XYPlot plot = (XYPlot) chart.getPlot();
@@ -71,40 +70,43 @@ public class HistogramaRGB {
         renderer.setBarPainter(new StandardXYBarPainter());
         //vermelho, verde, azul
         Paint[] paintArray = {
-          new Color(0x80ff0000, true),
-          new Color(0x8000ff00, true),
-          new Color(0x800000ff, true)
+            new Color(0x80ff0000, true),
+            new Color(0x8000ff00, true),
+            new Color(0x800000ff, true)
         };
         //desenhando o gráfico
         plot.setDrawingSupplier(new DefaultDrawingSupplier(
-            paintArray, 
-            DefaultDrawingSupplier.DEFAULT_FILL_PAINT_SEQUENCE,
-            DefaultDrawingSupplier.DEFAULT_OUTLINE_PAINT_SEQUENCE,
-            DefaultDrawingSupplier.DEFAULT_STROKE_SEQUENCE,
-            DefaultDrawingSupplier.DEFAULT_OUTLINE_STROKE_SEQUENCE,
-            DefaultDrawingSupplier.DEFAULT_SHAPE_SEQUENCE));
+                paintArray,
+                DefaultDrawingSupplier.DEFAULT_FILL_PAINT_SEQUENCE,
+                DefaultDrawingSupplier.DEFAULT_OUTLINE_PAINT_SEQUENCE,
+                DefaultDrawingSupplier.DEFAULT_STROKE_SEQUENCE,
+                DefaultDrawingSupplier.DEFAULT_OUTLINE_STROKE_SEQUENCE,
+                DefaultDrawingSupplier.DEFAULT_SHAPE_SEQUENCE));
         ChartPanel panel = new ChartPanel(chart);
         panel.setMouseWheelEnabled(true);
         return panel;
     }
-    
+
     //exibe ação do plot
     private class exibeAcao extends AbstractAction {
+
         private final int i;
+
         public exibeAcao(int i) {
             this.i = i;
             this.putValue(NAME, (String) dataset.getSeriesKey(i));
             this.putValue(SELECTED_KEY, true);
             renderer.setSeriesVisible(i, true);
         }
+
         @Override
         public void actionPerformed(ActionEvent e) {
             renderer.setSeriesVisible(i, !renderer.getSeriesVisible(i));
         }
     }
-    
+
     //cria o painel do bottom 
-    private JPanel criaPainel(){
+    private JPanel criaPainel() {
         JPanel panel = new JPanel();
         JComboBox Jbox = new JComboBox();
         JButton histEqual = new JButton("Equalizar Histograma");
@@ -115,9 +117,9 @@ public class HistogramaRGB {
         panel.add(Jbox);
         return panel;
     }
-    
+
     //exibe a tela
-    private void mostraTela(){
+    private void mostraTela() {
         JFrame f = new JFrame("PDI - Histograma");
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.add(criaHistograma(), BorderLayout.EAST);
@@ -127,43 +129,44 @@ public class HistogramaRGB {
         f.setLocationRelativeTo(f);
         f.setVisible(true);
     }
-    
+
     //método para pegar imagem
     private BufferedImage pegaImagem() {
-        try{
+        try {
             return ImageIO.read(arq);
-        }catch(IOException e){
+        } catch (IOException e) {
             e.printStackTrace(System.err);
         }
         return null;
     }
-    
-    public int[] pegaPixels(File file){
+
+    public int[] pegaPixels(File file) {
         BufferedImage img = pegaImagem();
-        int[] rgb = new int[w*h];
-        
-        for(int i = 0; i < w; i++)
-            for(int j = 0; j < h; j++){
-                rgb[i*j] = img.getRGB(i, j);
+        int[] rgb = new int[w * h];
+
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                rgb[i * j] = img.getRGB(i, j);
             }
-        
-         for(int i=0;i<rgb.length;i++){
+        }
+
+        for (int i = 0; i < rgb.length; i++) {
             Color c = new Color(rgb[i]);
-            System.out.println("Vermelho: "+c.getRed());
-         }
-         for(int i=0;i<rgb.length;i++){
+            System.out.println("Vermelho: " + c.getRed());
+        }
+        for (int i = 0; i < rgb.length; i++) {
             Color c = new Color(rgb[i]);
-            System.out.println("Vermelho: "+c.getGreen());
-         }
-         for(int i=0;i<rgb.length;i++){
+            System.out.println("Vermelho: " + c.getGreen());
+        }
+        for (int i = 0; i < rgb.length; i++) {
             Color c = new Color(rgb[i]);
-            System.out.println("Vermelho: "+c.getBlue());
-         }
-        
+            System.out.println("Vermelho: " + c.getBlue());
+        }
+
         return rgb;
     }
-    
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             new HistogramaRGB().mostraTela();
         });
