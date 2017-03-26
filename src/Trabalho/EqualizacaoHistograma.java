@@ -20,7 +20,7 @@ import javax.imageio.ImageIO;
  */
 public class EqualizacaoHistograma {
 
-    private static File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\ebola.png");
+    private static File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\jellyfish.png");
 
     //método para pegar imagem
     public BufferedImage pegaImagem() {
@@ -55,19 +55,14 @@ public class EqualizacaoHistograma {
                 vb[cAux.getBlue()]++;
             }
         }
-
         int[] somaR = new int[256];
         int[] somaG = new int[256];
         int[] somaB = new int[256];
-
         int[] qR = new int[256];
         int[] qG = new int[256];
         int[] qB = new int[256];
-        
-        
 
         for (int i = 0; i < 256; i++) {
-            Color c = new Color(rgb[i]);
             if (i == 0) {
                 somaR[i] = vr[i];
                 somaG[i] = vg[i];
@@ -101,7 +96,7 @@ public class EqualizacaoHistograma {
                 img.setRGB(i, j, newColor.getRGB());
             }
         }
-        File ouptut = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\ebola1.png");
+        File ouptut = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\jellyfish1.png");
         ImageIO.write(img, "png", ouptut);
         return rgb;
     }

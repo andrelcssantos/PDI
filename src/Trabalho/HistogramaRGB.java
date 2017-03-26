@@ -42,7 +42,7 @@ import org.jfree.data.statistics.HistogramDataset;
 public class HistogramaRGB {
 
     //instancia as variáveis
-    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\ebola.png");
+    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\jellyfish1.png");
     private BufferedImage imagem = pegaImagem();
     private Raster raster = imagem.getRaster();
     private HistogramDataset dataset;
@@ -150,18 +150,18 @@ public class HistogramaRGB {
             }
         }
 
-        for (int i = 0; i < rgb.length; i++) {
-            Color c = new Color(rgb[i]);
-            System.out.println("Vermelho: " + c.getRed());
-        }
-        for (int i = 0; i < rgb.length; i++) {
-            Color c = new Color(rgb[i]);
-            System.out.println("Vermelho: " + c.getGreen());
-        }
-        for (int i = 0; i < rgb.length; i++) {
-            Color c = new Color(rgb[i]);
-            System.out.println("Vermelho: " + c.getBlue());
-        }
+//        for (int i = 0; i < rgb.length; i++) {
+//            Color c = new Color(rgb[i]);
+//            System.out.println("Vermelho: " + c.getRed());
+//        }
+//        for (int i = 0; i < rgb.length; i++) {
+//            Color c = new Color(rgb[i]);
+//            System.out.println("Vermelho: " + c.getGreen());
+//        }
+//        for (int i = 0; i < rgb.length; i++) {
+//            Color c = new Color(rgb[i]);
+//            System.out.println("Vermelho: " + c.getBlue());
+//        }
 
         return rgb;
     }
