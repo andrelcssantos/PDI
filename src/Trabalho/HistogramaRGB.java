@@ -42,7 +42,7 @@ import org.jfree.data.statistics.HistogramDataset;
 public class HistogramaRGB {
 
     //instancia as variáveis
-    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\jellyfish1.png");
+    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\3.png");
     private BufferedImage imagem = pegaImagem();
     private Raster raster = imagem.getRaster();
     private HistogramDataset dataset;
@@ -140,16 +140,16 @@ public class HistogramaRGB {
         return null;
     }
 
-    public int[] pegaPixels(File file) {
-        BufferedImage img = pegaImagem();
-        int[] rgb = new int[w * h];
-
-        for (int i = 0; i < w; i++) {
-            for (int j = 0; j < h; j++) {
-                rgb[i * j] = img.getRGB(i, j);
-            }
-        }
-
+//    public int[] pegaPixels(File file) {
+//        BufferedImage img = pegaImagem();
+//        int[] rgb = new int[w * h];
+//
+//        for (int i = 0; i < w; i++) {
+//            for (int j = 0; j < h; j++) {
+//                rgb[i * j] = img.getRGB(i, j);
+//            }
+//        }
+//
 //        for (int i = 0; i < rgb.length; i++) {
 //            Color c = new Color(rgb[i]);
 //            System.out.println("Vermelho: " + c.getRed());
@@ -162,9 +162,9 @@ public class HistogramaRGB {
 //            Color c = new Color(rgb[i]);
 //            System.out.println("Vermelho: " + c.getBlue());
 //        }
-
-        return rgb;
-    }
+//
+//        return rgb;
+//    }
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {

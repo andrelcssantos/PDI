@@ -29,7 +29,7 @@ public class BufferedImageUsu {
                 }
             }
         }
-        ImageIO.write(image, "PNG", new File("checkerboard_color2.png"));
+        ImageIO.write(image, "PNG", new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\checkerboard_color2.png"));
     }
     
 }

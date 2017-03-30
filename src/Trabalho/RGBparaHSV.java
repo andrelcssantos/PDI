@@ -17,10 +17,10 @@ import javax.imageio.ImageIO;
 * n é a quantidade de vezes que o tom aparece, E é a somatoria de tons da imagem original
 * x = (h * w) / 256, onde h é a largura, w é a altura
  */
-public class EqualizacaoHistograma {
+public class RGBparaHSV {
     
     //abre o arquivo
-    private static File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\3.jpeg");
+    private static File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\jellyfish.png");
 
     //método para pegar imagem
     public BufferedImage pegaImagem() {
@@ -35,6 +35,8 @@ public class EqualizacaoHistograma {
     public int[] pegaPixels(File file) throws IOException {
         //pega a imagem
         BufferedImage img = pegaImagem(); 
+        
+        float hu = 0, sa = 0, br = 0;
         
         //w pega a largura da imagem - h pega a altura da imagem
         int w = img.getWidth();
@@ -61,6 +63,8 @@ public class EqualizacaoHistograma {
         int[] qG = new int[256];
         int[] qB = new int[256];
         
+        float[] hsbvals = new float[256];
+        
         //cAux e oldColor pegam os tons originais da imagem - newColor pega os tons após o cálculo
         Color cAux;
         Color oldColor;
@@ -74,6 +78,7 @@ public class EqualizacaoHistograma {
                 vr[cAux.getRed()]++;  //vr, vg, e vb irão receber os valores de cada tom da sua respectiva cor utilizando cAux como índice
                 vg[cAux.getGreen()]++;
                 vb[cAux.getBlue()]++;
+                
             }
         }
         
@@ -112,19 +117,20 @@ public class EqualizacaoHistograma {
                 blue = oldColor.getBlue();
                 //newColor recebe os valores calculados com is índices de cada cor
                 newColor = new Color(qR[red], qG[green], qB[blue]);
-                newColor
+                Color.getHSBColor(hu, sa, br);
+//                Color.RGBtoHSB(red, green, blue, hsbvals);
                 //seta o RGB da imagem nas posições i, j pegando os valores da newColor
                 img.setRGB(i, j, newColor.getRGB());
             }
         }
         //cria e escrever o novo arquivo
-        File ouptut = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\4.jpeg");
+        File ouptut = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\jellyfish5.png");
         ImageIO.write(img, "png", ouptut);
         return rgb;
     }
 
     public static void main(String[] args) throws IOException {
-        EqualizacaoHistograma m = new EqualizacaoHistograma();
+        RGBparaHSV m = new RGBparaHSV();
         m.pegaPixels(arq);
     }
 }
