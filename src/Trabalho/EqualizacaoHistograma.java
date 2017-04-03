@@ -112,13 +112,12 @@ public class EqualizacaoHistograma {
                 blue = oldColor.getBlue();
                 //newColor recebe os valores calculados com is índices de cada cor
                 newColor = new Color(qR[red], qG[green], qB[blue]);
-                newColor
                 //seta o RGB da imagem nas posições i, j pegando os valores da newColor
                 img.setRGB(i, j, newColor.getRGB());
             }
         }
         //cria e escrever o novo arquivo
-        File ouptut = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\4.jpeg");
+        File ouptut = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\5.jpeg");
         ImageIO.write(img, "png", ouptut);
         return rgb;
     }

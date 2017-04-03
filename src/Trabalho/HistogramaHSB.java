@@ -39,10 +39,10 @@ import org.jfree.data.statistics.HistogramDataset;
  *
  * @author Andre
  */
-public class HistogramaRGB {
+public class HistogramaHSB {
 
     //instancia as variáveis
-    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\4.png");
+    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\ebola.png");
     private BufferedImage imagem = pegaImagem();
     private Raster raster = imagem.getRaster();
     private HistogramDataset dataset;
@@ -51,17 +51,63 @@ public class HistogramaRGB {
     private final int w = imagem.getWidth();
     private final int h = imagem.getHeight();
     private double[] r = new double[w * h];
-
+    
     //monta o histograma
     public ChartPanel criaHistograma() {
+        
+        //pega a imagem
+        BufferedImage img = pegaImagem();
+        //w pega a largura da imagem - h pega a altura da imagem
+        int w = img.getWidth();
+        int h = img.getHeight();
+        //d calcula o tamanho da imagem
+        int d = (w * h);
+        //red, green e blue irão receber os tons de cor antigo da imagem - u vai receber o RGB da cor 
+        int red, green, blue, u, z = 0;
+        //retorna rgb no método
+        float[] hsb;
+        double[] vetH = new double[d+d+d];
+        double[] vetS = new double[d+d+d];
+        double[] vetB = new double[d+d+d];
+        float hue, sat, bri;
+        //cAux e oldColor pegam os tons originais da imagem - newColor pega os tons após o cálculo
+        Color oldColor;
+
+        //for responsável por substituir os tons antigos pelos novos; percorrem a imagem por largura e altura
+        for (int i = 0; i < w; i++) {
+            for (int j = 0; j < h; j++) {
+                u = img.getRGB(i, j); //u vai receber o RGB da posição i, j
+                oldColor = new Color(u); //oldColor é instanciado e recebe o valor de u
+                //cada cor recebe o valor do tom original
+                red = oldColor.getRed();
+                green = oldColor.getGreen();
+                blue = oldColor.getBlue();
+                hsb = Color.RGBtoHSB(red, green, blue, null);
+                hue = hsb[0];
+                sat = hsb[1];
+                bri = hsb[2];
+//                System.out.println("RGB [" + red + "," + green + "," + blue + "] converted to HSB [" + hue + "," + sat + "," + bri + "]");
+
+                double convH = Double.parseDouble(new Float(hue).toString());
+                vetH[z] = convH;
+                z++;
+                double convS = Double.parseDouble(new Float(sat).toString());
+                vetS[z] = convS;
+                z++;
+                double convB = Double.parseDouble(new Float(bri).toString());
+                vetB[z] = convB;
+                z++;
+            }
+        }
+        
         dataset = new HistogramDataset();
         //pega o RGB
-        r = raster.getSamples(0, 0, w, h, 0, r);
-        dataset.addSeries("Red", r, BINS);
-        r = raster.getSamples(0, 0, w, h, 1, r);
-        dataset.addSeries("Green", r, BINS);
-        r = raster.getSamples(0, 0, w, h, 2, r);
-        dataset.addSeries("Blue", r, BINS);
+//        r = raster.getSamples(0, 0, w, h, 0, r);
+        dataset.addSeries("Red", vetH, BINS);
+//        r = raster.getSamples(0, 0, w, h, 1, r);
+        dataset.addSeries("Green", vetS, BINS);
+//        r = raster.getSamples(0, 0, w, h, 2, r);
+        dataset.addSeries("Blue", vetB, BINS);
         JFreeChart chart = ChartFactory.createHistogram("Histograma", "Pixels", "Y",
                 dataset, PlotOrientation.VERTICAL, true, true, false);
         //Plota as cores
@@ -110,9 +156,9 @@ public class HistogramaRGB {
         JPanel panel = new JPanel();
         JComboBox Jbox = new JComboBox();
         JButton histEqual = new JButton("Equalizar Histograma");
-        panel.add(new JCheckBox(new HistogramaRGB.exibeAcao(0)));
-        panel.add(new JCheckBox(new HistogramaRGB.exibeAcao(1)));
-        panel.add(new JCheckBox(new HistogramaRGB.exibeAcao(2)));
+        panel.add(new JCheckBox(new HistogramaHSB.exibeAcao(0)));
+        panel.add(new JCheckBox(new HistogramaHSB.exibeAcao(1)));
+        panel.add(new JCheckBox(new HistogramaHSB.exibeAcao(2)));
         panel.add(histEqual);
         panel.add(Jbox);
         return panel;
@@ -142,7 +188,7 @@ public class HistogramaRGB {
 
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
-            new HistogramaRGB().mostraTela();
+            new HistogramaHSB().mostraTela();
         });
     }
 }
