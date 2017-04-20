@@ -38,7 +38,7 @@ import javax.swing.*;
     frame.setSize(500, 500);
     int[] pbins = new int[256];
     int[] sbins = new int[256];
-    PlanarImage image = JAI.create("fileload", "D:\\ProjetosNetBeans\\PDI\\jaigl.png");
+    PlanarImage image = JAI.create("fileload", "D:\\ProjetosNetBeans\\PDI\\src\\imagens\\3.png");
     BufferedImage bi = image.getAsBufferedImage();    
     System.out.println("tipe is          " + bi.getType());
     int[] pixel = new int[3];

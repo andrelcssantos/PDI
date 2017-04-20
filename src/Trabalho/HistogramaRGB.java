@@ -42,7 +42,7 @@ import org.jfree.data.statistics.HistogramDataset;
 public class HistogramaRGB {
 
     //instancia as variáveis
-    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\4.png");
+    private File arq = new File("D:\\ProjetosNetBeans\\PDI\\src\\imagens\\5.jpeg");
     private BufferedImage imagem = pegaImagem();
     private Raster raster = imagem.getRaster();
     private HistogramDataset dataset;
